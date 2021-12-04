@@ -224,6 +224,11 @@
 				]
 			}
 		],
+		"variables": {
+			"a": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
