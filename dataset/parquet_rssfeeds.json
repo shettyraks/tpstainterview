@@ -17,7 +17,7 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": "feed.parquet",
 				"folderPath": {
-					"value": "'Raw/FuelWatch/'@dataset().date",
+					"value": "Raw/FuelWatch/@dataset().date",
 					"type": "Expression"
 				},
 				"fileSystem": "datalakestore"
