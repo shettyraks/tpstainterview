@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "tpstaadf"
+		},
+		"adls_rssfeeds_accountKey": {
+			"value": ""
+		},
+		"azsql_datamart_connectionString": {
+			"value": ""
+		},
+		"adls_rssfeeds_properties_typeProperties_url": {
+			"value": "https://tpstainterview001.dfs.core.windows.net"
+		},
+		"http_fuelprice_rssfeeds_properties_typeProperties_url": {
+			"value": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?"
+		}
+	}
+}
