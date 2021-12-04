@@ -5,7 +5,14 @@
 			{
 				"name": "Copy_data_from_fuel_feed_to_adls",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -222,10 +229,23 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@convertFromUtc(utcnow(),'Asia/Singapore')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
-			"a": {
+			"date": {
 				"type": "String"
 			}
 		},
