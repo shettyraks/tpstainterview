@@ -169,7 +169,13 @@
 				"outputs": [
 					{
 						"referenceName": "parquet_rssfeeds",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"date": {
+								"value": "@variables('date')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
