@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['title']"
+									"path": "$['rss']['channel']['item'][0]['title']"
 								},
 								"sink": {
 									"name": "title",
@@ -51,7 +51,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['description']"
+									"path": "$['rss']['channel']['item'][0]['description']"
 								},
 								"sink": {
 									"name": "description",
@@ -60,7 +60,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['brand']"
+									"path": "$['rss']['channel']['item'][0]['brand']"
 								},
 								"sink": {
 									"name": "brand",
@@ -69,7 +69,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['date']"
+									"path": "$['rss']['channel']['item'][0]['date']"
 								},
 								"sink": {
 									"name": "date",
@@ -78,7 +78,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['price']"
+									"path": "$['rss']['channel']['item'][0]['price']"
 								},
 								"sink": {
 									"name": "price",
@@ -87,7 +87,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['trading-name']"
+									"path": "$['rss']['channel']['item'][0]['trading-name']"
 								},
 								"sink": {
 									"name": "trading-name",
@@ -96,7 +96,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rss']['channel']['item']['location']"
+									"path": "$['rss']['channel']['item'][0]['location']"
 								},
 								"sink": {
 									"name": "location",
