@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['rss']['channel']['item'][0]['title']"
+									"path": "$['rss']['channel']['item'][1]['title']"
 								},
 								"sink": {
 									"name": "title",
