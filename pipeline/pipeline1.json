@@ -238,7 +238,7 @@
 				"typeProperties": {
 					"variableName": "date",
 					"value": {
-						"value": "@convertFromUtc(utcnow(),'Asia/Singapore')",
+						"value": "@convertFromUtc(utcnow(),'Singapore Standard Time','yyyy-mm-dd')",
 						"type": "Expression"
 					}
 				}
