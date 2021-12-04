@@ -1,0 +1,12 @@
+{
+	"name": "AzureSqldatamart1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azsql_datamart",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
