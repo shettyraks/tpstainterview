@@ -209,7 +209,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table [tempstage].[FuelPrices]",
+						"preCopyScript": "truncate table tempstage.FuelPrices",
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
