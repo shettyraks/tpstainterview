@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['rss']['channel']['item'][0]['title']"
+									"path": "title"
 								},
 								"sink": {
 									"name": "title",
@@ -149,7 +149,8 @@
 								}
 							}
 						],
-						"collectionReference": ""
+						"collectionReference": "",
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
