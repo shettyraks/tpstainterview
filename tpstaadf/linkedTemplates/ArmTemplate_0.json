@@ -21,7 +21,7 @@
 		},
 		"http_fuelprice_rssfeeds_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?"
+			"defaultValue": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS"
 		}
 	},
 	"variables": {
@@ -103,13 +103,21 @@
 					"referenceName": "adls_rssfeeds",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"date": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "feed.parquet",
-						"folderPath": "Raw/FuelWatch/2021-12-04",
+						"folderPath": {
+							"value": "Raw/FuelWatch/@{dataset().date}",
+							"type": "Expression"
+						},
 						"fileSystem": "datalakestore"
 					},
 					"compressionCodec": "snappy"
@@ -142,15 +150,22 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline_to_process_fuel_price')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "Copy_data_from_fuel_feed_to_adls",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Set date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -181,7 +196,122 @@
 									"type": "ParquetWriteSettings"
 								}
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['title']"
+										},
+										"sink": {
+											"name": "title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['description']"
+										},
+										"sink": {
+											"name": "description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['brand']"
+										},
+										"sink": {
+											"name": "brand",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['date']"
+										},
+										"sink": {
+											"name": "date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"path": "[['price']"
+										},
+										"sink": {
+											"name": "price",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "[['trading-name']"
+										},
+										"sink": {
+											"name": "trading-name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['location']"
+										},
+										"sink": {
+											"name": "location",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['address']"
+										},
+										"sink": {
+											"name": "address",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['phone']"
+										},
+										"sink": {
+											"name": "phone",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['latitude']"
+										},
+										"sink": {
+											"name": "latitude",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "[['longitude']"
+										},
+										"sink": {
+											"name": "longitude",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "[['site-features']"
+										},
+										"sink": {
+											"name": "site-features",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "$['rss']['channel']['item']",
+								"mapComplexValuesToString": true
+							}
 						},
 						"inputs": [
 							{
@@ -194,16 +324,21 @@
 							{
 								"referenceName": "parquet_rssfeeds",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"date": {
+										"value": "@variables('date')",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					},
 					{
-						"name": "Copy data2",
+						"name": "Copy_data_from_adls_to_azsqldb",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Copy data1",
+								"activity": "Copy_data_from_fuel_feed_to_adls",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -228,6 +363,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table tempstage.FuelPrices",
 								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
@@ -245,7 +381,12 @@
 							{
 								"referenceName": "parquet_rssfeeds",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"date": {
+										"value": "@variables('date')",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -255,11 +396,29 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Set date",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "date",
+							"value": {
+								"value": "@convertFromUtc(utcnow(),'Singapore Standard Time','yyyy-mm-dd')",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"variables": {
+					"date": {
+						"type": "String"
+					}
 				},
 				"annotations": []
 			},

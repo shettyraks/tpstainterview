@@ -15,7 +15,7 @@
 			"value": "https://tpstainterview001.dfs.core.windows.net"
 		},
 		"http_fuelprice_rssfeeds_properties_typeProperties_url": {
-			"value": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?"
+			"value": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS"
 		}
 	}
 }

@@ -21,7 +21,7 @@
 		},
 		"http_fuelprice_rssfeeds_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?"
+			"defaultValue": "https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS"
 		},
 		"containerUri": {
 			"type": "string",
