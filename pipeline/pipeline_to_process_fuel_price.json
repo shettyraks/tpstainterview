@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pipeline_to_process_fuel_price",
 	"properties": {
 		"activities": [
 			{
