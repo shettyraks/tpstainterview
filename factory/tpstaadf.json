@@ -1,0 +1,9 @@
+{
+	"name": "tpstaadf",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "467a1cbe-2faa-4351-a14c-33429349b41e",
+		"tenantId": "cf252438-f8e2-4e33-8e9a-d927f0b4367e"
+	}
+}

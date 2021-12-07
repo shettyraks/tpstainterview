@@ -1,0 +1,30 @@
+{
+	"name": "parquet_rssfeeds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls_rssfeeds",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "feed.parquet",
+				"folderPath": {
+					"value": "Raw/FuelWatch/@{dataset().date}",
+					"type": "Expression"
+				},
+				"fileSystem": "datalakestore"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqldatamart1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azsql_datamart",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "tempstage",
+			"table": "FuelPrices"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
