@@ -1,0 +1,17 @@
+{
+	"name": "xml_rssfeeds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "http_fuelprice_rssfeeds",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
